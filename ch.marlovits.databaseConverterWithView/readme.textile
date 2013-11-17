@@ -1,0 +1,11 @@
+h1. Elexis extinfo converter
+
+converting old style entries to new style entries in extinfo
+
+for now, just MFUList is converter for Anwender
+
+h2. How to
+
+MFUList.java muss aktuell noch an den Original-Ort hinkopiert werden. (ch.rgw.tools)
+Ich teste noch, wie ich es hinkriege, MFUList im plugin selbst richtig zum Laufen zu bringen...
+geht leider noch nicht.
