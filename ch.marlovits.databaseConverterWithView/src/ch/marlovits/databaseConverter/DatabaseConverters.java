@@ -59,7 +59,7 @@ public class DatabaseConverters {
 			 * conversion fails (cast error) -> catch
 			 */
 			// *** read MFU from extinfo (old version) = SOURCE
-			ch.rgw.tools.MFUList_<String> leistungenMFU = (ch.rgw.tools.MFUList_<String>) extInfoAsMap
+			ch.rgw.tools.MFUList<String> leistungenMFU = (ch.rgw.tools.MFUList<String>) extInfoAsMap
 					.get(MFUName);
 			// *** create an empty MFUList (new version) = DEST
 			ch.elexis.core.data.util.MFUList<String> leistungenMFU_NEW = new ch.elexis.core.data.util.MFUList(

@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
 import ch.elexis.core.data.PersistentObject;
 import ch.elexis.core.data.PersistentObjectFactory;
 
-public class MFUListFactory_ extends PersistentObjectFactory {
+public class MFUListFactory extends PersistentObjectFactory {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public PersistentObject createFromString(String code) {
 		try {

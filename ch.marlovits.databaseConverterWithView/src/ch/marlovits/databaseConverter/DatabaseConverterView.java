@@ -16,7 +16,7 @@ public class DatabaseConverterView extends ViewPart {
 	}
 
 	public void createPartControl(Composite parent) {
-		Composite comp = new Composite(parent, SWT.NONE);
+		 Composite comp = new Composite(parent, SWT.NONE);
 		GridLayout gl = new GridLayout(2, false);
 		comp.setLayout(gl);
 
@@ -40,4 +40,5 @@ public class DatabaseConverterView extends ViewPart {
 	@Override
 	public void setFocus() {
 	}
+
 }

@@ -29,12 +29,12 @@ import java.util.List;
  *            must implement Serializable
  */
 
-public class MFUList___<T> implements Iterable<T>, Serializable {
+public class MFUList<T> implements Iterable<T>, Serializable {
 	private static final long serialVersionUID = 3966224865760348882L;
 	private ArrayList<Entry<T>> list;
 	int maxNum;
 
-	public MFUList___(int objectsToStart, int objectsToKeep) {
+	public MFUList(int objectsToStart, int objectsToKeep) {
 		list = new ArrayList<Entry<T>>(objectsToStart);
 		maxNum = objectsToKeep;
 	}

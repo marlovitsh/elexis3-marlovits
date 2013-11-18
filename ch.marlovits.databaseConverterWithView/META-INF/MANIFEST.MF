@@ -14,5 +14,4 @@ Import-Package: ch.elexis.core.data,
  ch.elexis.core.data.util,
  ch.elexis.core.model
 Bundle-ClassPath: .
-Export-Package: ch.marlovits.factories,
- ch.rgw.tools
+Export-Package: ch.rgw.tools
