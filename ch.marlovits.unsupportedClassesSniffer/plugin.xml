@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="Marlovits Unsupported Classes Sniffer"
+            class="ch.marlovits.unsupportedClassesSniffer.UnsupportedClassesSnifferView"
+            id="ch.marlovits.unsupportedClassesSniffer.View">
+      </view>
+   </extension>
+
+</plugin>

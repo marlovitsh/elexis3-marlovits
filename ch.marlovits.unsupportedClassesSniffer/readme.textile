@@ -1,0 +1,19 @@
+h1. Elexis Marlovits Unsupported Classes Sniffer
+
+*** This plugin is inteded for developers ***
+
+See discussion on "now unsupported data types in extinfo" in elexis develop mailing list.
+
+This sniffer pluging looks for unsupported classes in all extinfo-kind fields in the db.
+
+This looks for ALL unsupported classes, even the ones already catched in  ch.elexis.core.data/src/ch/elexis/core/data/util/CompatibleObjectInputStream.java.
+
+The view can be found in "Other" / "Marlovits Unsupported Classes Sniffer"
+It should be self explanatory.
+At the top there is a text field "Search for unresolved classes in the following fields"
+Here you can define any fields you wish to sniff on.
+One entry per line, each entry is formatted <tableName>:<fieldName>
+Empty lines are ignored
+If you wish to disable an entry you can just add ":_" at the end of an entry
+
+This is not a fully sized plugin, cancel not implemented.
