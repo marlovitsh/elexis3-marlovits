@@ -12,4 +12,4 @@ ch.marlovits.databaseConverterWithView<br>
 
 
 ch.marlovits.unsupportedClassesSniffer<br>
-- A sniffer for the unsupported classes which loops over all extinfo-kind fields in the db<br>
+- A sniffer for unsupported classes in extinfo which loops over all extinfo-kind fields in the db<br>
