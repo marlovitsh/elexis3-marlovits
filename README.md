@@ -6,7 +6,7 @@ plugin development for elexis3 - THIS IS PARTLY EXPERIMENTAL
 ***************************************************************
 Projects:
 
-ch.marlovits.databaseConverterWithView
+ch.marlovits.databaseConverterWithView<br>
    Converters for contents of extinfo old data defs to new data defs
    for now just for MFUList
 
