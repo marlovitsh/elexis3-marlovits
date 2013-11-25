@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="Pläne__"
+            icon="icons/plans.gif"
+            category="ch.marlovits.plans"
+            class="ch.marlovits.plans.views.PlansView"
+            id="ch.marlovits.plans.views.ch.marlovits.plans.views">
+      </view>
+   </extension>
+   <extension
+         point="ch.elexis.core.data.PersistentReference">
+      <Factory
+            Class="ch.marlovits.plans.data.DocHandle_MvFactory">
+      </Factory>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="ch.marlovits.plans.views.PlansPrefs"
+            id="ch.marlovits.plans.prefs"
+            name="Pläne">
+      </page>
+   </extension>
+
+</plugin>
