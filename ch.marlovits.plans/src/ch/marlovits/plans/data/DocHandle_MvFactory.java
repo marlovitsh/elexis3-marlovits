@@ -14,9 +14,8 @@
 package ch.marlovits.plans.data;
 
 import java.lang.reflect.Method;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
-import ch.elexis.core.data.PersistentObject;
-import ch.elexis.core.data.PersistentObjectFactory;
+import ch.elexis.data.PersistentObject;
+import ch.elexis.data.PersistentObjectFactory;
 
 
 public class DocHandle_MvFactory extends PersistentObjectFactory {

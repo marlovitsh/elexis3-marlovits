@@ -21,8 +21,11 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.internal.dialogs.WorkbenchPreferenceDialog;
 import org.eclipse.ui.part.*;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.preference.IPreferenceNode;
+import org.eclipse.jface.preference.PreferenceManager;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.custom.CTabFolder;
@@ -39,9 +42,9 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.SWT;
 
 import ch.elexis.core.constants.StringConstants;
-import ch.elexis.core.data.Anwender;
-import ch.elexis.core.data.Patient;
-import ch.elexis.core.data.Query;
+import ch.elexis.data.Anwender;
+import ch.elexis.data.Patient;
+import ch.elexis.data.Query;
 import ch.elexis.core.data.activator.CoreHub;
 import ch.elexis.core.data.events.ElexisEvent;
 import ch.elexis.core.data.events.ElexisEventDispatcher;
@@ -55,6 +58,7 @@ import ch.elexis.core.ui.actions.GlobalEventDispatcher;
 import ch.elexis.core.ui.actions.IActivationListener;
 import ch.elexis.core.ui.icons.Images;
 import ch.elexis.core.ui.util.SWTHelper;
+import ch.elexis.core.ui.util.ViewMenus;
 import ch.marlovits.plans.data.Activator;
 import ch.marlovits.plans.data.DocHandle_Mv;
 import ch.marlovits.plans.data.InputBox_2;
@@ -70,9 +74,10 @@ public class PlansView extends ViewPart implements IActivationListener {
 	public static final String ID = "ch.marlovits.plans.views.plansView"; //$NON-NLS-1$
 	private static final String ICON = "opplan_view"; //$NON-NLS-1$
 	private Action rotate180Action, deleteAction, doubleClickAction, editAction, reloadAction,
-			variableAction;
+			variableAction, callMyPrefs;
 	PlansView myself;
 	CTabFolder folderx;
+	private ViewMenus menus;
 	
 	static int menuIx;
 	
@@ -90,9 +95,9 @@ public class PlansView extends ViewPart implements IActivationListener {
 		"Payer", "Reilly", "Rühli"
 	};
 	
-	enum treeNames {
-		OPPLAN, OPANMELDUNG, ANDERES
-	}
+// enum treeNames {
+// OPPLAN, OPANMELDUNG, ANDERES
+// }
 	
 	int[][] colWidths = {
 // {
@@ -168,7 +173,7 @@ public class PlansView extends ViewPart implements IActivationListener {
 	
 	public static String[][] tabAndColNames = {
 		{
-			"OP-Pläne", "1", "OP-Pläne",
+			"OP-Pläne__", "1", "OP-Pläne",
 			
 			"", "", "Datum|Date:OP-Tag:*db*", "", "Datum Fax", "Keywords|Text:Bemerkungen:3:*db*"
 		},
@@ -312,7 +317,7 @@ public class PlansView extends ViewPart implements IActivationListener {
 		folderx.addSelectionListener(new org.eclipse.swt.events.SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent e){
-				//System.out.println("selected: " + folderx.getSelectionIndex());
+				// System.out.println("selected: " + folderx.getSelectionIndex());
 				currViewer = treeViewers.get(folderx.getSelectionIndex());
 			}
 			
@@ -325,6 +330,8 @@ public class PlansView extends ViewPart implements IActivationListener {
 		hookContextMenus();
 		hookDoubleClickActions();
 		contributeToActionBars();
+		menus = new ViewMenus(getViewSite());
+		menus.createMenu(callMyPrefs);
 		
 		GlobalEventDispatcher.addActivationListener(this, this);
 		// eeli_user.catchElexisEvent(ElexisEvent.createUserEvent());
@@ -646,7 +653,7 @@ public class PlansView extends ViewPart implements IActivationListener {
 	public String calcFaxDate(String faxDateTime){
 		if (faxDateTime.length() < "xxxx.xx.xx xx'xx'xx.pdf".length())
 			return faxDateTime;
-		//System.out.println(faxDateTime);
+		// System.out.println(faxDateTime);
 		faxDateTime = faxDateTime.replace("'", ":");
 		faxDateTime = faxDateTime.replace(".pdf", "");
 		faxDateTime = faxDateTime.split("\\_")[0]; // _1 und _2, etc wegstrippen
@@ -1108,6 +1115,18 @@ public class PlansView extends ViewPart implements IActivationListener {
 	}
 	
 	private void makeActions(){
+		callMyPrefs = new Action("Einstellungen...") {
+			{
+				setToolTipText("Einstellungen..");
+				setImageDescriptor(Images.IMG_OK.getImageDescriptor());
+			}
+			
+			@Override
+			public void run(){
+				WorkbenchPreferenceDialog wbpd= WorkbenchPreferenceDialog.createDialogOn(parent2.getShell(), "ch.marlovits.plans.prefs");
+				wbpd.open();
+			}
+		};
 		rotate180Action = new Action("Rotieren um 180°") {
 			{
 				setToolTipText("Rotieren um 180°");

@@ -15,7 +15,6 @@ package ch.marlovits.plans.data;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -26,8 +25,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 
-import ch.elexis.core.data.Patient;
-import ch.elexis.core.data.Query;
+import ch.elexis.data.Patient;
+import ch.elexis.data.Query;
 import ch.elexis.core.data.services.GlobalServiceDescriptors;
 import ch.elexis.core.data.services.IDocumentManager;
 import ch.elexis.core.ui.text.GenericDocument;

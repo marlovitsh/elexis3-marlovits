@@ -13,6 +13,8 @@
 package ch.marlovits.plans.views;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
@@ -24,6 +26,8 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -46,85 +50,80 @@ import ch.elexis.core.ui.preferences.SettingsPreferenceStore;
 import ch.elexis.core.ui.preferences.inputs.FileSelectorField;
 import ch.elexis.core.ui.preferences.inputs.MultilineFieldEditor;
 import ch.elexis.core.ui.preferences.inputs.StringListFieldEditor;
+import ch.marlovits.plans.data.MyTableEditor;
 import ch.marlovits.registry.Registry;
+import ch.marlovits.registry.WriterDoc;
 
 public class PlansPrefs extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
-	public static final String ID = "ch.marlovits.opplan.prefs"; //$NON-NLS-1$
-	Button backupDefaultButton;
+	// *** my id
+	public static final String ID = "ch.marlovits.plans.prefs"; //$NON-NLS-1$
 	
-	final static String MARLOVITS_PREFS_IMAGEMAGICK_CONVERT_PATH =
-		"marlovits/opplan/imagemagickconvertpath";
-	final static String MARLOVITS_PREFS_GHOSTSCRIPT_PATH = "marlovits/opplan/ghostscriptpath";
-	final static String MARLOVITS_PREFS_OPERATEURE = "marlovits/opplan/operateure";
+	// *** prefs paths
+	final static String PREFS_IMAGEMAGICK_CONVERT_PATH = "marlovits/plans/imagemagickconvertpath";
+	final static String PREFS_GHOSTSCRIPT_PATH = "marlovits/plans/ghostscriptpath";
+	final static String PREFS_OPERATEURE = "marlovits/plans/operateure";
+	final static String PREFS_DISPLAYSPECS = "marlovits/plans/displayspecs";
 	
+	// *** these prefs are global to all users
+	// *** may be it should be defined for a machine since the installation place could be different
+	// *** on different machines
 	SettingsPreferenceStore prefs = new SettingsPreferenceStore(CoreHub.globalCfg);
 	
 	public PlansPrefs(){
 		super(GRID);
 		
-		prefs.setDefault(MARLOVITS_PREFS_IMAGEMAGICK_CONVERT_PATH, ""); //$NON-NLS-1$
+		prefs.setDefault(PREFS_IMAGEMAGICK_CONVERT_PATH, ""); //$NON-NLS-1$
 		prefs.setDefault("Preferences.SCANNER_PREFIX_CODE", 0); //$NON-NLS-1$
 		prefs.setDefault("Preferences.SCANNER_POSTFIX_CODE", 123456789); //$NON-NLS-1$
 		prefs.setDefault("Preferences.BARCODE_LENGTH", 13); //$NON-NLS-1$
 		
 		setPreferenceStore(prefs);
-		setDescription("Messages.ScannerPref_SettingsForScanner");
+		setDescription("Einstellungen für die Ansicht Pläne");
 	}
 	
 	@Override
 	protected Control createContents(final Composite parent){
 		super.createContents(parent);
 		
-		GridLayout noMarginLayout = new GridLayout(3, false);
-		noMarginLayout.marginLeft = 0;
-		
-		Composite comp = new Composite(parent, SWT.NONE);
-		comp.setLayout(noMarginLayout);
-		comp.setLayoutData(new GridData(GridData.FILL_BOTH));
-		
-		Label lblTest = new Label(comp, SWT.NONE);
-		lblTest.setText("Messages.ScannerPref_test");
-		lblTest.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING));
-		final Text txtTest = new Text(comp, SWT.BORDER | SWT.MULTI | SWT.READ_ONLY | SWT.WRAP);
-		txtTest.setLayoutData(new GridData(GridData.FILL_BOTH));
-		
-		backupDefaultButton = getShell().getDefaultButton();
-		final Button hiddenBtn = new Button(parent, SWT.PUSH);
-		hiddenBtn.setVisible(false);
-		txtTest.addFocusListener(new FocusListener() {
-			
-			public void focusGained(FocusEvent e){
-				getShell().setDefaultButton(hiddenBtn);
-			}
-			
-			public void focusLost(FocusEvent e){
-				getShell().setDefaultButton(backupDefaultButton);
-			}
-		});
-		
-		Button btnClear = new Button(comp, SWT.PUSH);
-		btnClear.setText("Messages.ScannerPref_clear");
-		btnClear.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING));
-		btnClear.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e){
-				txtTest.setText(""); //$NON-NLS-1$
-				txtTest.setFocus();
-			}
-			
-		});
-		
-		Button btnSteuerblatt = new Button(parent, SWT.PUSH);
-		btnSteuerblatt.setText("Messages.ScannerPref_printSheet");
-		btnSteuerblatt.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e){
-				MessageDialog.openInformation(getShell(),
-					"Messages.ScannerPref_printSettingsSheet",
-					"Messages.ScannerPref_NotImplemented");
-			}
-		});
-		
+// GridLayout noMarginLayout = new GridLayout(3, false);
+// noMarginLayout.marginLeft = 0;
+//
+// Composite comp = new Composite(parent, SWT.NONE);
+// comp.setLayout(noMarginLayout);
+// comp.setLayoutData(new GridData(GridData.FILL_BOTH));
+//
+//
+// Label lblTitle = new Label(comp, SWT.NONE);
+// lblTitle.setText("Einstellungen für die Ansicht Pläne");
+//
+//
+// lblTitle.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING));
+// final Text txtTest = new Text(comp, SWT.BORDER | SWT.MULTI | SWT.READ_ONLY | SWT.WRAP);
+// txtTest.setLayoutData(new GridData(GridData.FILL_BOTH));
+//
+// Button btnClear = new Button(comp, SWT.PUSH);
+// btnClear.setText("Messages.ScannerPref_clear");
+// btnClear.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING));
+// btnClear.addSelectionListener(new SelectionAdapter() {
+// @Override
+// public void widgetSelected(SelectionEvent e){
+//				txtTest.setText(""); //$NON-NLS-1$
+// txtTest.setFocus();
+// }
+//
+// });
+//
+// Button btnSteuerblatt = new Button(parent, SWT.PUSH);
+// btnSteuerblatt.setText("Messages.ScannerPref_printSheet");
+// btnSteuerblatt.addSelectionListener(new SelectionAdapter() {
+// @Override
+// public void widgetSelected(SelectionEvent e){
+// MessageDialog.openInformation(getShell(),
+// "Messages.ScannerPref_printSettingsSheet",
+// "Messages.ScannerPref_NotImplemented");
+// }
+// });
+//
 		return parent;
 		
 // // +++++ Auswahl des Patienten, der für das Speichern der Dokumente verwendet wird
@@ -171,60 +170,111 @@ public class PlansPrefs extends FieldEditorPreferencePage implements IWorkbenchP
 		String programFolder = System.getenv("ProgramFiles");
 		
 		String[] allowedExtensions = {
-			"*.exe"
+			"*convert.exe"
 		};
 		
 		// *** image magick convert exe path
 		FileFieldEditor ffeImageMagicExe =
-			new FileFieldEditor(MARLOVITS_PREFS_IMAGEMAGICK_CONVERT_PATH,
-				"Exe for Image Magic Convert", getFieldEditorParent());
+			new FileFieldEditor(PREFS_IMAGEMAGICK_CONVERT_PATH, "Exe for Image Magic Convert",
+				getFieldEditorParent());
 		ffeImageMagicExe.setFileExtensions(allowedExtensions);
 		ffeImageMagicExe.setFilterPath(new File(programFolder));
 		addField(ffeImageMagicExe);
-		
-		// +++++ 
+		// +++++ call /version -> test if it returns something with ImageMagick -> then it is an
+// imageMagick exe
 		
 		// *** ghost script exe path
 		FileFieldEditor ffeGhostscriptExe =
-			new FileFieldEditor(MARLOVITS_PREFS_GHOSTSCRIPT_PATH, "Exe for Ghostscript",
+			new FileFieldEditor(PREFS_GHOSTSCRIPT_PATH, "Exe for Ghostscript",
 				getFieldEditorParent());
 		ffeGhostscriptExe.setFileExtensions(allowedExtensions);
 		ffeGhostscriptExe.setFilterPath(new File(programFolder));
 		addField(ffeGhostscriptExe);
 		
+		// *** operateure
 		MultilineFieldEditor sfe =
-			new MultilineFieldEditor("Preferences.SCANNER_PREFIX_CODE",
-				"uuuuuuuuuuuuuuuu", getFieldEditorParent());
+			new MultilineFieldEditor(PREFS_OPERATEURE, "Operateure, 1 pro Zeile",
+				getFieldEditorParent());
 		Text text = sfe.getTextControl(getFieldEditorParent());
+		addField(sfe);
 		
-		addField(new IntegerFieldEditor("Preferences.SCANNER_PREFIX_CODE",
-			"Messages.ScannerPref_ScannerPrefix", getFieldEditorParent(), 10));
+		Button sortOperateure = new Button(getFieldEditorParent(), SWT.PUSH);
+		sortOperateure.setText("Sort Operateure");
+		new Label(getFieldEditorParent(), SWT.NONE);
+		new Label(getFieldEditorParent(), SWT.NONE);
 		
-		addField(new IntegerFieldEditor("Preferences.SCANNER_POSTFIX_CODE",
-			"Messages.ScannerPref_ScannerPostfix", getFieldEditorParent(), 10));
-		
-		addField(new IntegerFieldEditor("Preferences.BARCODE_LENGTH",
-			"Messages.ScannerPref_Barcodelength", getFieldEditorParent(), 50));
-		
-		StringListFieldEditor slfe =
-				new StringListFieldEditor(MARLOVITS_PREFS_OPERATEURE, "Operateure", "inputMessage",
-					"String input", getFieldEditorParent());
-			
-		Button bttttn = new Button(getFieldEditorParent(), SWT.PUSH);
-		bttttn.setText("test reading registry");
-		bttttn.addSelectionListener(new SelectionListener() {
-			
-			@Override
-			public void widgetSelected(SelectionEvent e){
-				Registry.testit();
-			}
-			
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e){
-				// TODO Auto-generated method stub
-				
-			}
-			
+		// *** Defs
+		MyTableEditor fee = new MyTableEditor(PREFS_DISPLAYSPECS, new String[] {
+			"erste", "zweite", "dritte"
+		}, new int[] {
+			200, 200, 300
+		}, getFieldEditorParent());
+		List<String[]> fieldList = new ArrayList<String[]>();
+		fieldList.add(new String[] {
+			"1.1", "1.2", "1.3"
 		});
+		fieldList.add(new String[] {
+			"2.1", "2.2", "1.3"
+		});
+		fieldList.add(new String[] {
+			"3.1", "3.2", "1.3"
+		});
+		fieldList.add(new String[] {
+			"4.1", "4.2", "1.3"
+		});
+		fieldList.add(new String[] {
+			"5.1", "5.2", "1.3"
+		});
+		//fee.setItems(fieldList);
+		addField(fee);
+		
+		// *** some space
+		new Label(getFieldEditorParent(), SWT.NONE);
+		new Label(getFieldEditorParent(), SWT.NONE);
+		new Label(getFieldEditorParent(), SWT.NONE);
+		
+		new Label(getFieldEditorParent(), SWT.NONE);
+		new Label(getFieldEditorParent(), SWT.NONE);
+		new Label(getFieldEditorParent(), SWT.NONE);
+		
+		// ////////////////////////////////////
+// addField(new IntegerFieldEditor("Preferences.SCANNER_PREFIX_CODE",
+// "Messages.ScannerPref_ScannerPrefix", getFieldEditorParent(), 10));
+//
+// addField(new IntegerFieldEditor("Preferences.SCANNER_POSTFIX_CODE",
+// "Messages.ScannerPref_ScannerPostfix", getFieldEditorParent(), 10));
+//
+// addField(new IntegerFieldEditor("Preferences.BARCODE_LENGTH",
+// "Messages.ScannerPref_Barcodelength", getFieldEditorParent(), 50));
+//
+// StringListFieldEditor slfe =
+// new StringListFieldEditor(PREFS_OPERATEURE, "Operateure", "inputMessage",
+// "String input", getFieldEditorParent());
+//
+// Button bttttn = new Button(getFieldEditorParent(), SWT.PUSH);
+// bttttn.setText("test reading registry");
+// bttttn.addSelectionListener(new SelectionListener() {
+//
+// @Override
+// public void widgetSelected(SelectionEvent e){
+// String templateDoc =
+// "C:/Documents and Settings/Rob/My Documents/EclipseProjects/OpenOffice/MyTemplateDoc.odt";
+//
+// try {
+// WriterDoc.createDoc("My Document Title", null, true);
+// // doc.createDoc("My Document Title", templateDoc, true);
+// } catch (Exception e2) {
+// e2.printStackTrace();
+// }
+// // Registry.testit();
+// }
+//
+// @Override
+// public void widgetDefaultSelected(SelectionEvent e){
+// // TODO Auto-generated method stub
+//
+// }
+//
+// });
 	}
 }
