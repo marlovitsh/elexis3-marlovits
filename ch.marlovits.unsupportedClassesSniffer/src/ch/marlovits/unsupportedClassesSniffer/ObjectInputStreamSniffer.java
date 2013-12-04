@@ -12,7 +12,8 @@ import java.util.Set;
 
 /**
  * this is a subclass of ObjectInputStream. It is used just to find unresolved
- * classes saved to binary data in the db using ObjectOutputStream.writeObject()
+ * classes saved to binary data in the db using
+ * ObjectOutputStream.writeObject(). This is used by ExtInfoSniffer
  * 
  * @author marlovitsh
  * 
