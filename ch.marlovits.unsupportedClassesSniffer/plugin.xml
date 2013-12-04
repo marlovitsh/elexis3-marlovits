@@ -5,9 +5,18 @@
    <extension
          point="org.eclipse.ui.views">
       <view
-            name="Marlovits Unsupported Classes Sniffer"
-            class="ch.marlovits.unsupportedClassesSniffer.UnsupportedClassesSnifferView"
-            id="ch.marlovits.unsupportedClassesSniffer.View">
+            allowMultiple="false"
+            class="ch.marlovits.unsupportedClassesSniffer.ExtInfoSnifferView"
+            id="ch.marlovits.unsupportedClassesSniffer.ExtInfoSnifferView"
+            name="ExtInfoSniffer ***"
+            restorable="false">
+      </view>
+      <view
+            allowMultiple="false"
+            class="ch.marlovits.unsupportedClassesSniffer.ArtikelSnifferView"
+            id="ch.marlovits.unsupportedClassesSniffer.ArtikelSnifferView"
+            name="Artikel Sniffer ***"
+            restorable="false">
       </view>
    </extension>
 
