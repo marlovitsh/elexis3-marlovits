@@ -1,6 +1,5 @@
 package ch.marlovits_auf;
 
-// +++++ hmm
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
