@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.1"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="%elexis.konsCategory"
+            id="ch.elexis.konsultationKategorie">
+      </category>
+      <view
+            name="AUF Marlovits"
+            icon="rsc/auf.png"
+            category="ch.elexis.konsultationKategorie"
+            class="ch.marlovits_auf.AUF22"
+            id="ch.marlovits_auf.AUF22">
+      </view>
+   </extension>
+</plugin>

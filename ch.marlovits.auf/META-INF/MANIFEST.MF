@@ -1,0 +1,33 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: AUF Marlovits
+Bundle-SymbolicName: ch.marlovits.auf;singleton:=true
+Bundle-Version: 3.0.0.qualifier
+Bundle-Activator: ch.marlovits_auf.Activator
+Export-Package: ch.marlovits_auf
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Import-Package: ch.elexis.core.data.events,
+ ch.elexis.core.model,
+ ch.elexis.core.ui,
+ ch.elexis.core.ui.actions,
+ ch.elexis.core.ui.dialogs,
+ ch.elexis.core.ui.events,
+ ch.elexis.core.ui.icons,
+ ch.elexis.core.ui.util,
+ ch.elexis.core.ui.util.viewers,
+ ch.elexis.core.ui.views,
+ ch.elexis.data,
+ ch.elexis.views,
+ ch.rgw.tools
+Bundle-ActivationPolicy: lazy
+Bundle-Vendor: marlovits.ch
+Created-By: Buildr
+
