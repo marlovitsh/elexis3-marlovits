@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="ch.elexis.core.data.PersistentReference">
+      <Factory
+            Class="ch.marlovits.importer.aeskulap.krankenkassentarifsh.data.KrankenkassenTarifSHFactory"
+            name="Aeskulap Krankenkassentarif SH">
+      </Factory>
+      <Factory
+            Class="ch.marlovits.importer.aeskulap.krankenkassentarifsh.data.SUVATarifUVGFactory"
+            name="Aeskulap SUVA Tarif UVG">
+      </Factory>
+   </extension>
+   <extension
+           point="ch.elexis.core.ui.Verrechnungscode">
+      <Leistung
+            CodeDetailDisplay="ch.marlovits.importer.aeskulap.krankenkassentarifsh.views.KrankenkassenTarifSHDetailDisplay"
+            CodeSelectorFactory="ch.marlovits.importer.aeskulap.krankenkassentarifsh.views.KrankenkassenTarifSHSelector"
+            ElementFactory="ch.marlovits.importer.aeskulap.krankenkassentarifsh.data.KrankenkassenTarifSHFactory"
+            name="Aeskulap Krankenkassentarif SH">
+      </Leistung>
+      <Leistung
+            CodeDetailDisplay="ch.marlovits.importer.aeskulap.krankenkassentarifsh.views.SUVATarifUVGDetailDisplay"
+            CodeSelectorFactory="ch.marlovits.importer.aeskulap.krankenkassentarifsh.views.SUVATarifUVGSelector"
+            ElementFactory="ch.marlovits.importer.aeskulap.krankenkassentarifsh.data.SUVATarifUVGFactory"
+            name="Aeskulap SUVA Tarif UVG">
+      </Leistung>
+   </extension>
+ </plugin>
