@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="ch.elexis.core.data.PersistentReference">
+      <Factory
+            Class="ch.marlovits.importer.aeskulap.diagnosen.data.MarlovitsCodesFactory"
+            name="Aeskulap ICD9">
+      </Factory>
+   </extension>
+   <extension
+         point="ch.elexis.core.ui.Diagnosecode">
+      <Diagnosesystem
+            CodeDetailDisplay="ch.marlovits.importer.aeskulap.diagnosen.views.DetailDisplay"
+            CodeSelectorFactory="ch.marlovits.importer.aeskulap.diagnosen.views.CodeSelectorFactory"
+            ElementFactory="ch.marlovits.importer.aeskulap.diagnosen.data.MarlovitsCodesFactory"
+            ImporterClass="ch.marlovits.importer.aeskulap.diagnosen.data.Importer"
+            name="Aeskulap ICD9">
+      </Diagnosesystem>
+   </extension>
+
+</plugin>
